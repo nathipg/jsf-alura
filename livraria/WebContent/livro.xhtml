@@ -79,6 +79,13 @@
 						render="tabelaAutores" />
 				</h:commandButton>
 				
+				<br />
+				
+				<h:commandLink
+					value="Cadastrar novo autor"
+					action="autor?faces-redirect=true"
+					immediate="true" />
+				
 				<h:dataTable
 					id="tabelaAutores" 
 					value="#{livroBean.autoresDoLivro}" 
