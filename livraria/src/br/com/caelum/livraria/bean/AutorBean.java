@@ -13,6 +13,8 @@ import br.com.caelum.livraria.modelo.Autor;
 public class AutorBean {
 
 	private Autor autor = new Autor();
+	
+	private Integer autorId;
 
 	public Autor getAutor() {
 		return autor;
@@ -36,11 +38,23 @@ public class AutorBean {
 		new DAO<Autor>(Autor.class).remove(autor);
 	}
 	
+	public void carregarAutorPeloId() {
+		this.autor = new DAO<Autor>(Autor.class).buscaPorId(autorId);
+	}
+	
 	public List<Autor> getAutores() {
 		return new DAO<Autor>(Autor.class).listaTodos();
 	}
 	
 	public void setAutor(Autor autor) {
 		this.autor = autor;
+	}
+
+	public Integer getAutorId() {
+		return autorId;
+	}
+
+	public void setAutorId(Integer autorId) {
+		this.autorId = autorId;
 	}
 }
