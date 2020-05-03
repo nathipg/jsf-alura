@@ -13,6 +13,10 @@
 			<h:graphicImage
 				library="img"
 				name="logo.png" />
+			<br />
+			<h:outputText 
+				rendered="#{sessionScope['usuarioLogado'] != null}" 
+				value="Olá, #{sessionScope['usuarioLogado']['email']}" /> 
 			<h1>
 				<ui:insert name="titulo" />
 			</h1>

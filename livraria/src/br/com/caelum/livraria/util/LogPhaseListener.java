@@ -6,6 +6,8 @@ import javax.faces.event.PhaseListener;
 
 public class LogPhaseListener implements PhaseListener {
 
+	private static final long serialVersionUID = 9039601385787424895L;
+
 	@Override
 	public void afterPhase(PhaseEvent arg0) {
 	}
