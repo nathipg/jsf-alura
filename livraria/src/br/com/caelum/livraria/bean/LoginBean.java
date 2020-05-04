@@ -1,5 +1,6 @@
 package br.com.caelum.livraria.bean;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -19,14 +20,25 @@ public class LoginBean {
 		
 		boolean existe = new UsuarioDAO().existe(this.usuario);
 		
+		FacesContext context = FacesContext.getCurrentInstance();
+		
 		if(existe) {
-			FacesContext context = FacesContext.getCurrentInstance();
 			context.getExternalContext().getSessionMap().put("usuarioLogado", this.getUsuario());
 			
 			return "livro?faces-redirect=true";
 		}
 		
-		return null;
+		context.getExternalContext().getFlash().setKeepMessages(true); // Manter as mensagens por 2 requisições
+		context.addMessage(null, new FacesMessage("Email e/ou senha incorreta"));
+		
+		return "login?faces-redirect=true";
+	}
+	
+	public String deslogar() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getSessionMap().remove("usuarioLogado");
+		
+		return "login?faces-redirect=true";
 	}
 
 	public Usuario getUsuario() {

@@ -14,9 +14,17 @@
 				library="img"
 				name="logo.png" />
 			<br />
-			<h:outputText 
-				rendered="#{sessionScope['usuarioLogado'] != null}" 
-				value="Olá, #{sessionScope['usuarioLogado']['email']}" /> 
+			
+			<h:form
+				rendered="#{usuarioLogado != null}">
+				<h:outputText  
+					value="Olá, #{usuarioLogado['email']}!" />
+				<h:commandLink
+					value="Sair"
+					action="#{loginBean.deslogar}" />
+			</h:form>
+			
+				
 			<h1>
 				<ui:insert name="titulo" />
 			</h1>
