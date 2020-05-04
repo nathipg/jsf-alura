@@ -77,52 +77,59 @@
 				<p:fieldset
 					legend="Dados do Autor">
 					
-					<p:outputLabel value="Autor: " for="autor" />
-					<p:selectOneMenu
-						id="autor" 
-						value="#{livroBean.autorId}">
-						<f:selectItems 
-							value="#{livroBean.autores}" 
-							var="autor" 
-							itemLabel="#{autor.nome}"
-							itemValue="#{autor.id}" />
-					</p:selectOneMenu>
-					<p:commandButton value="Gravar Autor" action="#{livroBean.gravarAutor}">
-						<f:ajax
-							execute="autor"
-							render="tabelaAutores" />
-					</p:commandButton>
-					
-					<br />
-					
-					<h:commandLink
-						value="Cadastrar novo autor"
-						action="autor?faces-redirect=true"
-						immediate="true" />
-					
-					<h:dataTable
-						id="tabelaAutores" 
-						value="#{livroBean.autoresDoLivro}" 
-						var="autor">
+					<p:panelGrid
+						columns="4">
 						
-						<h:column>
-							<h:outputText value="#{autor.nome}" />
-						</h:column>
+						<p:outputLabel value="Autor: " for="autor" />
+						<p:selectOneMenu
+							id="autor" 
+							value="#{livroBean.autorId}">
+							<f:selectItems 
+								value="#{livroBean.autores}" 
+								var="autor" 
+								itemLabel="#{autor.nome}"
+								itemValue="#{autor.id}" />
+						</p:selectOneMenu>
+						<p:commandButton 
+							value="Gravar Autor" 
+							action="#{livroBean.gravarAutor}"
+							process="@this autor"
+							update="tabelaAutores" />
 						
-						<h:column>
-							<f:facet name="header"></f:facet>
-							<h:commandLink
+						<p:commandLink
+							value="ou cadastrar novo autor"
+							action="autor?faces-redirect=true"
+							immediate="true"
+							update="@all" />
+						
+					</p:panelGrid>
+					
+					<p:dataTable
+						id="tabelaAutores"  
+						var="autor" 
+						value="#{livroBean.autoresDoLivro}"
+						emptyMessage="Nenhum Autor">
+						
+					    <p:column>
+					        <h:outputText value="#{autor.nome}" />
+					    </p:column>
+					 
+					    <p:column>
+					        <p:commandLink
 								value="X"
-								action="#{livroBean.removerAutorDoLivro(autor)}" />	
-						</h:column>
-					</h:dataTable>
+								action="#{livroBean.removerAutorDoLivro(autor)}"
+								process="@this"
+								update="tabelaAutores" />
+					    </p:column>
+					    
+					</p:dataTable>
 				</p:fieldset>
 		
-				<p:commandButton value="Gravar" action="#{livroBean.gravar}">
-					<f:ajax
-						execute="@form"
-						render="@form :formTabelaLivros:tabelaLivros" />
-				</p:commandButton>
+				<p:commandButton 
+					value="Gravar" 
+					action="#{livroBean.gravar}"
+					process="@form"
+					update="@form :formTabelaLivros:tabelaLivros" />
 				
 			</h:form>
 			
