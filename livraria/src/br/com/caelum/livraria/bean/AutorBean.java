@@ -20,7 +20,7 @@ public class AutorBean {
 		return autor;
 	}
 
-	public String gravar() {
+	public void gravar() {
 		System.out.println("Gravando autor " + this.autor.getNome());
 
 		if(this.autor.getId() == null) {
@@ -30,8 +30,6 @@ public class AutorBean {
 		}
 		
 		this.autor = new Autor();
-		
-		return "livro?faces-redirect=true";
 	}
 	
 	public void remover(Autor autor) {
