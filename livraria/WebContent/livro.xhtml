@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 	
 	<ui:composition
 		template="_template.xhtml">
@@ -21,13 +22,15 @@
 		
 		<ui:define name="conteudo">
 			<h:form>
-				<h:messages id="messages" />
-				<fieldset>
-					<legend>Dados do Livro</legend>
-					<h:panelGrid columns="2">
+			
+				<p:messages id="messages" />
+				
+				<p:fieldset
+					legend="Dados do Livro">
+					<p:panelGrid columns="2">
 		
-						<h:outputLabel value="Titulo:" for="titulo" />
-						<h:inputText 
+						<p:outputLabel value="Titulo:" for="titulo" />
+						<p:inputText 
 							id="titulo" 
 							value="#{livroBean.livro.titulo}" 
 							required="true"
@@ -38,45 +41,44 @@
 								<f:ajax
 									event="blur"
 									render="messages" />
-						</h:inputText>
+						</p:inputText>
 		
-						<h:outputLabel value="ISBN:" for="isbn" />
-						<h:inputText
+						<p:outputLabel value="ISBN:" for="isbn" />
+						<p:inputMask
 							id="isbn" 
 							value="#{livroBean.livro.isbn}" 
-							validator="#{livroBean.comecaComDigitoUm}">
+							validator="#{livroBean.comecaComDigitoUm}"
+							mask="999-9-99-999999-9">
 							<f:ajax
 								event="blur"
 								render="messages" />
-						</h:inputText>
+						</p:inputMask>
 		
-						<h:outputLabel value="Preço:" for="preco" />
-						<h:inputText 
+						<p:outputLabel value="Preço:" for="preco" />
+						<p:inputNumber 
 							id="preco" 
 							value="#{livroBean.livro.preco}"
-							validatorMessage="O valor do livro deve estar entre R$ 1,00 e R$ 1000,00">
-							<f:validateDoubleRange 
-								minimum="1" 
-								maximum="1000" />
-						</h:inputText>
+							validatorMessage="O valor do livro deve estar entre R$ 1,00 e R$ 1000,00"
+							minValue="1" 
+							maxValue="1000" 
+							decimalPlaces="2" />
 		
-						<h:outputLabel value="Data de Lançamento:" for="dataLancamento" />
-						<h:inputText 
+						<p:outputLabel value="Data de Lançamento:" for="dataLancamento" />
+						<p:calendar 
 							id="dataLancamento"
-							value="#{livroBean.livro.dataLancamento.time}">
-							<f:convertDateTime 
-								pattern="dd/MM/yyyy" 
-								timeZone="America/Sao_Paulo" />	
-						</h:inputText>
+							value="#{livroBean.livro.dataLancamento.time}"
+							pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo"
+							mask="true" />
 		
-					</h:panelGrid>
-				</fieldset>
+					</p:panelGrid>
+				</p:fieldset>
 				
-				<fieldset>
-					<legend>Dados do Autor</legend>
+				<p:fieldset
+					legend="Dados do Autor">
 					
-					<h:outputLabel value="Autor: " for="autor" />
-					<h:selectOneMenu
+					<p:outputLabel value="Autor: " for="autor" />
+					<p:selectOneMenu
 						id="autor" 
 						value="#{livroBean.autorId}">
 						<f:selectItems 
@@ -84,12 +86,12 @@
 							var="autor" 
 							itemLabel="#{autor.nome}"
 							itemValue="#{autor.id}" />
-					</h:selectOneMenu>
-					<h:commandButton value="Gravar Autor" action="#{livroBean.gravarAutor}">
+					</p:selectOneMenu>
+					<p:commandButton value="Gravar Autor" action="#{livroBean.gravarAutor}">
 						<f:ajax
 							execute="autor"
 							render="tabelaAutores" />
-					</h:commandButton>
+					</p:commandButton>
 					
 					<br />
 					
@@ -114,13 +116,13 @@
 								action="#{livroBean.removerAutorDoLivro(autor)}" />	
 						</h:column>
 					</h:dataTable>
-				</fieldset>
+				</p:fieldset>
 		
-				<h:commandButton value="Gravar" action="#{livroBean.gravar}">
+				<p:commandButton value="Gravar" action="#{livroBean.gravar}">
 					<f:ajax
 						execute="@form"
 						render="@form :formTabelaLivros:tabelaLivros" />
-				</h:commandButton>
+				</p:commandButton>
 				
 			</h:form>
 			
