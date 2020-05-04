@@ -28,8 +28,14 @@
 							id="email" 
 							value="#{loginBean.usuario.email}"
 							required="true"
-							requiredMessage="Email obrigatório">
+							requiredMessage="Email obrigatório"
+							validatorMessage="Email inválido">
+							<f:passThroughAttribute name="placeholder" value="Email" />
 							<f:attribute name="type" value="email" />
+							<f:validateRegex pattern=".+@.+\..+" />
+							<f:ajax
+								event="blur"
+								render="messageEmail" />
 						</p:inputText>
 						<p:message for="email" />
 						
@@ -39,7 +45,9 @@
 							value="#{loginBean.usuario.senha}" 
 							feedback="true"
 							required="true"
-							requiredMessage="Senha obrigatório" />
+							requiredMessage="Senha obrigatório">
+							<f:passThroughAttribute name="placeholder" value="Senha" />	
+						</p:password>
 						<p:message for="senha" />
 						
 						<p:commandButton 

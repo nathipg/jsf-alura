@@ -33,8 +33,8 @@
 							required="true"
 							requiredMessage="Nome obrigatório"
 							validatorMessage="Nome deve ter pelo menos 5 caracteres">
-							<f:validateLength
-								minimum="5" />
+							<f:validateLength minimum="5" />
+							<f:passThroughAttribute name="placeholder" value="Nome" />
 						</p:inputText>
 						<p:message for="nome" />
 						
